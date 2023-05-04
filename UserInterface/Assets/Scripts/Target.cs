@@ -41,6 +41,16 @@ public class Target : MonoBehaviour
             gameManager.UpdateLives(-1);
     }
 
+    public void OnMouseDown()
+    {
+        if (gameManager.isGameActive)
+        {
+            Destroy(gameObject);
+            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
+            gameManager.UpdateScore(pointValue);
+        }
+    }
+
     Vector3 RandomForce()
     {
         return Vector3.up * Random.Range(minSpeed, maxSpeed);
@@ -54,15 +64,5 @@ public class Target : MonoBehaviour
     Vector3 RandomSpawnPos()
     {
         return new Vector3(Random.Range(-xRange, xRange), ySpawnPos);
-    }
-
-    public void DestroyTarget()
-    {
-        if (gameManager.isGameActive)
-        {
-            Destroy(gameObject);
-            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
-            gameManager.UpdateScore(pointValue);
-        }
     }
 }
